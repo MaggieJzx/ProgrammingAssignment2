@@ -1,20 +1,31 @@
-## test your code
-source("cachematrix.R")
-## Write a short comment describing this function
+## Put comments here that give an overall description of what your
+## functions do
+
 makeCacheMatrix <- function(x = matrix()) {
+        inversematrix <- NULL
+        setmatrix <- function(y) {
+                x <<- y
+                inversematrix <<- NULL
+        }
+        getmatrix <- function() x
+        setinverse <- function(inverse) inversematrix <<- inverse
+        getinverse <- function() inversematrix
+        list(setmatrix = setmatrix, getmatrix = getmatrix,
+             setinverse = setinverse,
+             getinverse = getinverse)
 }
-## generate the matrix, and inverse of the matrix
+
+## Write a short comment describing this function
 cacheSolve <- function(x, ...) {
+        inversematrix <- x$getinverse()
+        if(!is.null(inversematrix)) {
+                message("getting inversed matrix")
+                return(inversematrix)
+        }
+        matrixdata <- x$getmatrix()
+        inversematrix <- sove(matrixdata, ...)
+        x$setinverse(inversematrix)
+        inversematrix
+}
         ## Return a matrix that is the inverse of 'x'
 }
-special.matrix #
-## this should take long, since it's the first go
-print("Solving the matrix for the first time.")
-##time1 special.solved.1 time2 print(time2 - time1)
-##this should be lightning fast
-print("Solving the matrix for the second time.")
-##time1 special.solved.2 time2 print(time2 - time1)
-## check if all solved matrices are identical
-print(identical(mymatrix.inverse, special.solved.1))
-print(identical(mymatrix.inverse, special.solved.2))
-## should return TRUE
